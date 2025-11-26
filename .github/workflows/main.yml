@@ -64,9 +64,12 @@ jobs:
 
 
     - run: |
-        ./gradlew build ${{ (startsWith(github.event_name, 'push') && 'publish') || '' }} -PArchOverride=linuxarm64 -PPublishType=${{ matrix.publish-type }} -x check
-      env:
-        ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
+          cmake -G Ninja -S . -B cmake_build -DOPENCV_ARCH=linuxarm64
+          cmake --build cmake_build
+    # - run: |
+    #     ./gradlew build ${{ (startsWith(github.event_name, 'push') && 'publish') || '' }} -PArchOverride=linuxarm64 -PPublishType=${{ matrix.publish-type }} -x check
+    #   env:
+    #     ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
 
     - uses: actions/upload-artifact@v4
       with:
