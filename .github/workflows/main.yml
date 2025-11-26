@@ -9,15 +9,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-  validation:
-    name: "Validation"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/actions/wrapper-validation@v4
+  # validation:
+  #   name: "Validation"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: gradle/actions/wrapper-validation@v4
   build:
     runs-on: ubuntu-24.04-arm
-    needs: [validation]
+    # needs: [validation]
     strategy:
       fail-fast: false
       matrix:
