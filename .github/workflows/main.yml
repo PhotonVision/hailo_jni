@@ -1,4 +1,4 @@
-name: Build rubik_java
+name: Build JNI
 
 on:
   push:
@@ -69,13 +69,8 @@ jobs:
         ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
 
     - uses: actions/upload-artifact@v4
-      name: Upload jar
       with:
-        name: librubik-jar-pi-${{matrix.jar-name}}
-        path: ${{ github.workspace }}/build/libs/*.jar
-    - uses: actions/upload-artifact@v4
-      with:
-        name: librubik-${{ matrix.jar-name }}
+        name: libhailo-${{ matrix.jar-name }}
         path: cmake_build/*.so
 
     # Push to dev release on pushes to master
