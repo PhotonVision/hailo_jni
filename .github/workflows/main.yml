@@ -63,7 +63,7 @@ jobs:
         git clone https://github.com/hailo-ai/hailort.git
         cd hailort
         cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/bin
-        cmake --build build
+        sudo cmake --build build --target install
 
 
     - run: |
