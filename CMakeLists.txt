@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(hailo_jni)
 
-find_package(HailoRT 4.23.0 REQUIRED)
+find_package(HailoRT 5.1.1 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

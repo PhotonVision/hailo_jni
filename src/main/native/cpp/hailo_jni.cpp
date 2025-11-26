@@ -104,7 +104,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
   // Find the detection result class
   jclass localClass =
       env->FindClass("org/photonvision/hailo/HailoJNI$HailoResult");
-  if (!localClass) {
+  ibinf (!localClass) {
     std::printf(
         "Couldn't find class org/photonvision/hailo/HailoJNI$HailoResult!\n");
     return JNI_ERR;
