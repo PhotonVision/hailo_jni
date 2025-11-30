@@ -1,0 +1,4 @@
+[submodule "hailort"]
+	path = hailort
+	url = git@github.com:hailo-ai/hailort.git
+	branch = hailo8
