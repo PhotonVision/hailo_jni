@@ -52,6 +52,9 @@ jobs:
         java-version: 17
         distribution: temurin
 
+    - name: Install sccache
+      uses: mozilla-actions/sccache-action@v0.0.9
+
     - name: Set up build environment
       run: |
         sudo apt-get update
@@ -63,13 +66,12 @@ jobs:
     - name: Install HailoRT
       run: |
         cd hailort
-        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
         sudo cmake --build build --target install
-
 
     - name: Build native code
       run: |
-          cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }}
+          cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
           cmake --build cmake_build --target install -- -j 4
 
     - run: find .
