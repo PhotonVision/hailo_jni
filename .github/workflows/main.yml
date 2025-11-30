@@ -37,6 +37,9 @@ jobs:
             jar-name: "DebugWithAsan"
 
     steps:
+    - name: Install sccache
+      uses: mozilla-actions/sccache-action@v0.0.9
+
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
@@ -51,9 +54,6 @@ jobs:
       with:
         java-version: 17
         distribution: temurin
-
-    - name: Install sccache
-      uses: mozilla-actions/sccache-action@v0.0.9
 
     - name: Set up build environment
       run: |
