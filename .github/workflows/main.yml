@@ -84,6 +84,8 @@ jobs:
       env:
         ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
 
+    - run: sccache --show-stats
+
     - uses: actions/upload-artifact@v4
       with:
         name: libhailo-${{ matrix.jar-name }}
