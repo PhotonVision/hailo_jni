@@ -28,7 +28,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "hailo/hailort.hpp"
+#include <hailo/hailort.hpp>
 
 #if defined(__unix__)
 #include <sys/mman.h>
@@ -171,8 +171,9 @@ Java_org_photonvision_hailo_HailoJNI_create
     detector->device = VDevice::create().expect("Failed create vdevice");
     detector->infer_model = detector->device->create_infer_model(model).expect(
         "Failed to create infer model");
-    detector->configured_infer_model = detector->infer_model->configure().expect(
-        "Failed to create configured infer model");
+    detector->configured_infer_model =
+        detector->infer_model->configure().expect(
+            "Failed to create configured infer model");
 
     jlong ptr = reinterpret_cast<jlong>(detector);
 
