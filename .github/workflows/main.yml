@@ -73,7 +73,7 @@ jobs:
         SCCACHE_GHA_ENABLED: "true"
       run: |
           cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
-          cmake --build cmake_build --target install -- -j 4
+          sudo cmake --build cmake_build --target install -- -j 4
 
     - run: find .
 
