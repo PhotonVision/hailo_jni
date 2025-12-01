@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 def nativeName = wpilibTools.platformMapper.currentPlatform.platformName;
 def artifactGroupId = 'org.photonvision'
-def baseArtifactId = "rubik_jni"
+def baseArtifactId = "hailo_jni"
 
 def jniType = project.findProperty("PublishType") ?: "";
 println("Building with JNI publish type: " + jniType);
@@ -44,6 +44,6 @@ publishing {
 
 tasks.withType(PublishToMavenRepository) {
     doFirst {
-        println("Publishing rubik-jni to " + repository.url)
+        println("Publishing hailo-jni to " + repository.url)
     }
 }

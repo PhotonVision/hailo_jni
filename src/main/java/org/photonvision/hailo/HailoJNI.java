@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.photonvision.rubik;
+package org.photonvision.hailo;
 
 import org.opencv.core.Point;
 import org.opencv.core.Rect2d;
