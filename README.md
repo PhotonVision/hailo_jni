@@ -13,4 +13,4 @@ cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_COMPILER_LAUNCHER=sccache 
 sudo cmake --build build --target install
 ```
 
-To cross compile to install `gcc-aarch64-linux-gnu` and `gfortran-aarch64-linux-gnu` and add `-DCMAKE_TOOLCHAIN_FILE=path/to/hailo_jni/arm64-toolchain.cmake` to both builds. Along with changing the install directory of the hailort to `/usr/aarch64-linux-gnu`.
+To cross compile to install `gcc-aarch64-linux-gnu`, `g++-aarch64-linux-gnu` and `gfortran-aarch64-linux-gnu` and add `-DCMAKE_TOOLCHAIN_FILE=path/to/hailo_jni/arm64-toolchain.cmake` to both builds. Along with changing the install directory of the hailort to `/usr/aarch64-linux-gnu`.

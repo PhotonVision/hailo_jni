@@ -20,9 +20,7 @@ package org.photonvision.hailo;
 import org.opencv.core.Point;
 import org.opencv.core.Rect2d;
 
-/**
- * Class containing JNI for using the HAILO V8 over PCIE.
- */
+/** Class containing JNI for using the HAILO V8 over PCIE. */
 public class HailoJNI {
     /** A class representing the result of a detection. */
     public static class HailoResult {
@@ -44,8 +42,10 @@ public class HailoJNI {
 
         /** Rectangle of the bounding box */
         public final Rect2d rect;
+
         /** Detection confidence */
         public final float conf;
+
         /** Class of the detected object */
         public final int class_id;
 
