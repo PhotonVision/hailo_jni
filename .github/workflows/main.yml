@@ -65,12 +65,12 @@ jobs:
       run: |
         cd hailort
         cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../cmake_build -DHAILO_BUILD_GSTREAMER=OFF
-        sudo cmake --build build --target install
+        cmake --build build --target install
 
     - name: Build native code
       run: |
           cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }}
-          sudo cmake --build cmake_build --target install -- -j 4
+          cmake --build cmake_build --target install -- -j 4
 
     - run: |
         ./gradlew build ${{ (startsWith(github.event_name, 'push') && 'publish') || '' }} -PArchOverride=linuxarm64 -PPublishType=${{ matrix.publish-type }} -PversionString=v2026.1.1-dev -x check
