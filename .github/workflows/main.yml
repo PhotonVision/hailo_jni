@@ -17,7 +17,7 @@ jobs:
       - uses: gradle/actions/wrapper-validation@v4
 
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     needs: [validation]
     strategy:
       fail-fast: false
@@ -68,7 +68,7 @@ jobs:
     - name: Install HailoRT
       run: |
         cd hailort
-        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../cmake_build -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
         sudo cmake --build build --target install
 
     - name: Build native code
