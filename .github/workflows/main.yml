@@ -42,14 +42,6 @@ jobs:
         submodules: 'recursive'
         fetch-depth: 0
 
-    - name: Configure sccache
-      uses: actions/github-script@v7
-      with:
-        script: |
-          core.exportVariable('ACTIONS_RESULTS_URL', process.env.ACTIONS_RESULTS_URL || '');
-          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
-          core.exportVariable('SCCACHE_GHA_ENABLED', "true");
-
     # - name: Fetch tags
     #   run: git fetch --tags --force
     # - run: git describe --tags
@@ -63,25 +55,23 @@ jobs:
     - name: Set up build environment
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential default-jdk openjdk-17-jdk pkg-config git libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev python3 python3-dev python3-pip python3-setuptools python3-venv sccache
+        sudo apt-get install -y cmake build-essential default-jdk openjdk-17-jdk pkg-config git libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev python3 python3-dev python3-pip python3-setuptools python3-venv
 
     - name: Install HailoRT
       run: |
         cd hailort
-        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../cmake_build -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+        cmake . -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../cmake_build
         sudo cmake --build build --target install
 
     - name: Build native code
       run: |
-          cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+          cmake -B cmake_build -S . -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_INSTALL_PREFIX=cmake_build -DOPENCV_ARCH=linuxarm64 ${{ matrix.extra-cmake-args }}
           sudo cmake --build cmake_build --target install -- -j 4
 
     - run: |
         ./gradlew build ${{ (startsWith(github.event_name, 'push') && 'publish') || '' }} -PArchOverride=linuxarm64 -PPublishType=${{ matrix.publish-type }} -PversionString=v2026.1.1-dev -x check
       env:
         ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
-
-    - run: sccache --show-stats
 
     - uses: actions/upload-artifact@v4
       with:
