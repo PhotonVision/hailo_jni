@@ -1,0 +1,5 @@
+cmake_build
+build
+.gradle
+hailort_binaries
+install_dir
