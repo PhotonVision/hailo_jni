@@ -16,11 +16,15 @@ build.dependsOn nativeLibraryJar
 publishing {
     repositories {
         maven {
+          if (project.hasProperty('copyOfflineArtifacts')) {
+            url(file("$project.buildDir/outputs/maven"))
+          } else {
             url ('https://maven.photonvision.org/' + (isDev ? 'snapshots' : 'releases'))
             credentials {
                 username 'ghactions'
                 password System.getenv("ARTIFACTORY_API_KEY")
             }
+          }
         }
     }
 
